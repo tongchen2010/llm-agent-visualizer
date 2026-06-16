@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LLM Agent Visualizer — watch the ReAct loop think</title>
+  <meta name="description" content="An interactive visualization of how an LLM agent reasons: the Reason → Act → Observe (ReAct) loop, animated step by step." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='15' fill='%236ea8fe'/><path d='M16 1a15 15 0 000 30z' fill='%238b7cff'/></svg>" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">◑</span>
+        <div>
+          <h1>LLM Agent Visualizer</h1>
+          <p class="tagline">Watch an LLM agent <strong>think</strong> — the <em>Reason → Act → Observe</em> (ReAct) loop, animated step by step.</p>
+        </div>
+      </div>
+      <a class="ghlink" id="repo-link" href="#" target="_blank" rel="noopener">&lt;/&gt; Source</a>
+    </header>
+
+    <section class="controls">
+      <label for="scenario">Task</label>
+      <select id="scenario" aria-label="Scenario"></select>
+      <div class="btns">
+        <button id="run-btn" class="primary">▶ Run</button>
+        <button id="step-btn" class="ghost">Step</button>
+        <button id="reset-btn" class="ghost">Reset</button>
+      </div>
+      <div class="speed">
+        <label for="speed">Speed</label>
+        <input type="range" id="speed" min="0.5" max="3" step="0.5" value="1.5" />
+      </div>
+    </section>
+
+    <main class="stage">
+      <div class="question-bar" id="question-bar"></div>
+
+      <div class="loop-track">
+        <div class="loop-node" data-phase="reason">🧠<span>Reason</span></div>
+        <div class="loop-arrow">→</div>
+        <div class="loop-node" data-phase="act">🔧<span>Act</span></div>
+        <div class="loop-arrow">→</div>
+        <div class="loop-node" data-phase="observe">👁<span>Observe</span></div>
+        <div class="loop-arrow loop-back">↺</div>
+        <span class="iter" id="iter">iteration 0</span>
+      </div>
+
+      <div class="timeline" id="timeline">
+        <p class="placeholder" id="placeholder">Pick a task and press <strong>Run</strong> to watch the agent solve it one step at a time.</p>
+      </div>
+    </main>
+
+    <footer class="pagefoot">
+      <span>These are <strong>recorded</strong> agent traces, replayed for clarity. The same loop drives real tool-using agents (LangChain, the Claude/OpenAI SDKs, etc.).</span>
+    </footer>
+  </div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
